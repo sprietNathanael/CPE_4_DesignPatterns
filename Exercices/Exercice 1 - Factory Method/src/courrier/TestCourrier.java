@@ -5,10 +5,11 @@ public class TestCourrier
 
     public static void main(String[] args)
     {
-            CourrierHtml courrierHtml = new CourrierHtml();
+            //CourrierHtml courrierHtml = new CourrierHtml();
+            Courrier<ContenuHtml> courrierHtml = new Courrier<ContenuHtml>(ContenuHtml.class);
             courrierHtml.prepare("adresse1@domaine", "texte1");
             System.out.println(courrierHtml);
-            CourrierTexte courrierTexte = new CourrierTexte();
+            Courrier<ContenuTexte> courrierTexte = new Courrier<ContenuTexte>(ContenuTexte.class);
             courrierTexte.prepare("adresse2@domaine", "texte2");
             System.out.println(courrierTexte);
     }
