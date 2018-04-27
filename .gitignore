@@ -53,3 +53,4 @@ nbactions.xml
 # End of https://www.gitignore.io/api/java,linux,netbeans
 /Exercices/Exercice 1 - Factory Method/courrier/nbproject/private/
 /Exercices/Exercice 1 - Factory Method/nbproject/private/
+/Exercices/JeuEchec/nbproject/private/
