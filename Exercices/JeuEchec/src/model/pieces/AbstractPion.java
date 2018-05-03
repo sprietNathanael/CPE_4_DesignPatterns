@@ -32,7 +32,7 @@ public abstract class AbstractPion extends AbstractPiece  {
 	 * @see model.AbstractPiece#isMoveOk(int, int)
 	 */
 	@Override
-	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
+	public final boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
 			boolean isCastlingPossible) {
 
 		boolean ret = false;
