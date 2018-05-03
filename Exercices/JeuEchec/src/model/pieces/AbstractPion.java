@@ -43,7 +43,7 @@ public abstract class AbstractPion extends AbstractPiece  {
 			if ((xFinal == this.getX())
 					&& (Math.abs(yFinal - this.getY()) <= 1 || 
 					(Math.abs(yFinal - this.getY()) <= 2 && this.premierCoup==true))) {
-                            this.deplacementVertical(xFinal, yFinal);
+                            ret = this.deplacementVertical(xFinal, yFinal);
 				/*if ((Couleur.NOIR.equals(this.getCouleur()) && (yFinal - this.getY() > 0))
 						|| (Couleur.BLANC.equals(this.getCouleur()) 
 								&& (yFinal - this.getY() < 0))) {
