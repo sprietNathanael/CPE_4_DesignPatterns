@@ -3,9 +3,12 @@ package model.game;
 
 import model.pieces.Pieces;
 import java.util.List;
+import java.util.ArrayList;
 import model.Couleur;
 
 import tools.ChessPiecesFactory;
+import vue.PieceIHMs;
+import vue.PieceIHM;
 
 /**
  * @author francoise.perrin
@@ -49,6 +52,16 @@ public class Jeu implements Game {
 		this.couleur = couleur;
 		isPieceToCatch = isMoveOk = false;
 	}
+        
+        public List<PieceIHMs>getPiecesIHM()
+        {
+            List<PieceIHMs> result = new ArrayList();
+            for(final Pieces piece : pieces)
+            {
+                result.add(new PieceIHM(piece));
+            }
+            return result;
+        }
 
 
 	/**

@@ -41,6 +41,7 @@ public class Echiquier implements BoardGames {
 		super();
 		this.jeuBlanc = new Jeu(Couleur.BLANC);
 		this.jeuNoir = new Jeu(Couleur.NOIR);
+                System.out.println(this.jeuBlanc.getPiecesIHM());
 		this.jeuCourant = this.jeuBlanc;
 		this.jeuOppose = this.jeuNoir;
 		this.setMessage("Les blancs doivent commencer");
