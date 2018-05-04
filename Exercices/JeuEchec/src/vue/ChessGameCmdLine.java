@@ -1,7 +1,8 @@
 package vue;
 
 import model.Coord;
-import controler.controlerLocal.ChessGameControler;
+import controler.AbstractChessGameControler;
+import controler.ChessGameControlers;
 
 
 
@@ -12,12 +13,11 @@ import controler.controlerLocal.ChessGameControler;
  * Vue console d'un jeu d'échec
  * Cette classe est un observateur et le damier est mis à jour à chaque changement dans la classe métier
  */
-public class ChessGameCmdLine  {
+public class ChessGameCmdLine extends AbstractGameView {
 
-	ChessGameControler chessGameControler;
 
-	public   ChessGameCmdLine(ChessGameControler chessGameControler) {
-		this.chessGameControler = chessGameControler;
+	public   ChessGameCmdLine(ChessGameControlers chessGameControler) {
+            super(chessGameControler);
 	}
 
 

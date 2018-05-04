@@ -4,6 +4,8 @@ import java.util.Observer;
 
 import vue.ChessGameCmdLine;
 import controler.ChessGameControlers;
+import controler.controlerLocal.LocalChessGameControler;
+import model.game.ChessGame;
 
 
 
@@ -20,7 +22,7 @@ public class LauncherCmdLine {
 		ChessGameCmdLine vue;
 		
 		model = new ChessGame();	
-		controler = new ChessGameControler(model);
+		controler = new LocalChessGameControler(model);
 		
 		new ChessGameCmdLine(controler);	
 		
