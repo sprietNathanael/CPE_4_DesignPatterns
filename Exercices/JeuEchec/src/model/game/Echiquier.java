@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import model.Coord;
 import model.Couleur;
+import vue.PieceIHMs;
 
 
 /**
@@ -50,6 +51,14 @@ public class Echiquier implements BoardGames {
 		this.isPieceToMoveOk = false;
 		this.isCastlingPossible = false;
 	}
+        
+        public List<PieceIHMs> getPiecesIHM()
+        {
+            List<PieceIHMs> allPieces = this.jeuBlanc.getPiecesIHM();
+            allPieces.addAll(this.jeuNoir.getPiecesIHM());
+            
+            return allPieces;
+        }
 
 
 	/**

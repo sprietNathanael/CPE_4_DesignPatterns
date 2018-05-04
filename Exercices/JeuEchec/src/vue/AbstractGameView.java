@@ -6,24 +6,30 @@
 package vue;
 
 import controler.ChessGameControlers;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import tools.CustomObserver;
 
 /**
  *
  * @author nathanael
  */
-public class AbstractGameView implements GameViews, Observer{
+public abstract class AbstractGameView implements GameViews, CustomObserver{
     
     protected ChessGameControlers chessGameControler;
-
-    @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public AbstractGameView(ChessGameControlers controller) {
         this.chessGameControler = controller;
     }
     
+    @Override
+    public final void update(Object arg) {
+        List<PieceIHMs> piecesIHM = (List<PieceIHMs>)arg;
+        this.updatePiecesIHM(piecesIHM);
+        
+    }
+
+    public abstract void updatePiecesIHM(List<PieceIHMs> piecesIHMs);
 }

@@ -7,12 +7,14 @@ package model.game;
 
 import java.util.Observable;
 import model.Couleur;
+import tools.CustomObservable;
+import tools.CustomObserver;
 
 /**
  *
  * @author nathanael
  */
-public class ChessGame extends Observable implements BoardGames{
+public class ChessGame extends CustomObservable implements BoardGames{
 
     private Echiquier echiquier;
     
@@ -22,15 +24,17 @@ public class ChessGame extends Observable implements BoardGames{
     
     @Override
     public boolean move(int xInit, int yInit, int xFinal, int yFinal) {
+        boolean returnValue = false;
         if(this.echiquier.isMoveOk(xInit, yInit, xFinal, yFinal))
         {
             if(this.echiquier.move(xInit, yInit, xFinal, yFinal))
             {
                 this.echiquier.switchJoueur();
-                return true;
+                returnValue = true;
             }
         }
-        return false;
+        this.notifyObservers();
+        return returnValue;
     }
 
     @Override
@@ -56,6 +60,15 @@ public class ChessGame extends Observable implements BoardGames{
     @Override
     public String toString() {
         return "ChessGame{" + "echiquier=" + echiquier + "}\n"+this.getMessage();
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(CustomObserver observer : observers)
+        {
+            observer.update(this.echiquier.getPiecesIHM());
+            
+        }
     }
     
     
