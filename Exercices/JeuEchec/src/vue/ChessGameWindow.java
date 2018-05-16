@@ -21,6 +21,10 @@ import model.Coord;
 import tools.ChessImageProvider;
 import tools.ChessPiecePos;
 import controler.ChessGameControlers;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import model.Couleur;
 
 
 /**
@@ -63,6 +67,7 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 	// au milieu du carre lors d'un deplacement  (drag)
 	private int xAdjustment;
 	private int yAdjustment;
+        
 
 
 	/**
@@ -124,6 +129,7 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 		JPanel square = null;
 
 		this.setContentPane(this.layeredPane);	
+                this.layeredPane.removeAll();
 		this.layeredPane.add(this.chessBoardGuiContainer, JLayeredPane.DEFAULT_LAYER);
 		this.chessBoardGuiContainer.setLayout( new GridLayout(8, 8) );
 		this.chessBoardGuiContainer.setBounds(0, 0, boardSize.width-10, boardSize.height-30);
@@ -173,6 +179,26 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 			}
 		}
 	}
+        
+        public void refreshPiecesGrid(List<PieceIHMs> piecesIHM)
+        {
+            JLabel piece;
+            JPanel panel;
+            /*for(Iterator<Component> iter = Arrays.asList(chessBoardGuiContainer.getComponents()).listIterator(); iter.hasNext())
+            {
+                Component component = iter.next();
+                chessBoardGuiContainer.remove(component);
+            }*/
+            chessBoardGuiContainer.removeAll();
+            drawGrid();
+            for (Iterator<PieceIHMs> iter = piecesIHM.listIterator(); iter.hasNext(); ) {
+                PieceIHMs pieceIHM = iter.next();
+                piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getName(), pieceIHM.getCouleur())));
+                panel = (JPanel) chessBoardGuiContainer.getComponent((pieceIHM.getX()) + (pieceIHM.getY() * 8));
+                panel.add(piece);
+            }
+            chessBoardGuiContainer.repaint();
+        }
 
 	
 	/* (non-Javadoc)

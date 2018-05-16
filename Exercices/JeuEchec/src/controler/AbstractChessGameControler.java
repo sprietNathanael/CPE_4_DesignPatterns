@@ -37,7 +37,7 @@ public abstract class AbstractChessGameControler implements ChessGameControlers{
 
     @Override
     public boolean isPlayerOK(Coord initCoord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (this.game.getColorCurrentPlayer() == this.game.getPieceColor(initCoord.x, initCoord.y));
     }
 
     @Override

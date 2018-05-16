@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import controler.ChessGameControlers;
 import controler.controlerLocal.LocalChessGameControler;
 import model.game.ChessGame;
+import tools.CustomObserver;
 import vue.ChessGameGUI;
 
 
@@ -37,7 +38,7 @@ public class LauncherGUI {
 		chessGameControler = new LocalChessGameControler(chessGame);
 		
 		gui = new ChessGameGUI("Jeu d'échec", chessGameControler,  dim);
-		chessGame.addObserver((Observer) gui);
+		chessGame.addObserver((CustomObserver) gui);
 		
 		
 	}

@@ -7,6 +7,7 @@ package vue;
 
 import controler.ChessGameControlers;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -26,6 +27,11 @@ public class ChessGameGUI extends AbstractGameView{
         this.window.setPreferredSize(boardSize);
         this.window.pack();
         this.window.setVisible(true);
+    }
+
+    @Override
+    public void updatePiecesIHM(List<PieceIHMs> piecesIHMs) {
+        this.window.refreshPiecesGrid(piecesIHMs);
     }
     
     
