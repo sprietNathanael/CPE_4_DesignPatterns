@@ -21,9 +21,12 @@ import model.Coord;
 import tools.ChessImageProvider;
 import tools.ChessPiecePos;
 import controler.ChessGameControlers;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 import model.Couleur;
 
 
@@ -68,8 +71,8 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 	private int xAdjustment;
 	private int yAdjustment;
         
-
-
+        
+        
 	/**
 	 * 
 	 * Construit le plateau de l'echiquier sous forme de damier 8*8
@@ -117,7 +120,7 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 		// par une notification au démarrage du jeu
 		// le remplissage est effectué par la ligne suivante à décommenter :
 		 this.initFillGrid();
-
+                 
 	}
 
 
@@ -133,7 +136,7 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 		this.layeredPane.add(this.chessBoardGuiContainer, JLayeredPane.DEFAULT_LAYER);
 		this.chessBoardGuiContainer.setLayout( new GridLayout(8, 8) );
 		this.chessBoardGuiContainer.setBounds(0, 0, boardSize.width-10, boardSize.height-30);
-
+                
 		// remplissage du damier avec les carres 
 		for (int i = 0; i<8; i++){
 			for (int j = 0; j<8; j++) {
@@ -147,12 +150,12 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 				else {
 					square.setBackground( j % 2 != 0 ? new Color(255,250,240): new Color(139,69,0) );
 				}
-
+                            
 				// ajout du carre sur le damier
 				this.chessBoardGuiContainer.add( square );
 			}
 		}
-	}
+                	}
 
 
 
@@ -193,12 +196,9 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
             drawGrid();
             for (Iterator<PieceIHMs> iter = piecesIHM.listIterator(); iter.hasNext(); ) {
                 PieceIHMs pieceIHM = iter.next();
-                if(pieceIHM.getX() >= 0 || pieceIHM.getY() >= 0)
-                {
-                    piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getName(), pieceIHM.getCouleur())));
-                    panel = (JPanel) chessBoardGuiContainer.getComponent((pieceIHM.getX()) + (pieceIHM.getY() * 8));
-                    panel.add(piece);
-                }
+                piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getName(), pieceIHM.getCouleur())));
+                panel = (JPanel) chessBoardGuiContainer.getComponent((pieceIHM.getX()) + (pieceIHM.getY() * 8));
+                panel.add(piece);
             }
             chessBoardGuiContainer.repaint();
         }
@@ -242,11 +242,28 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 
 				// Mise en évidence des cases vers lesquelles 
 				// la pièce peut être déplacée 	
+                                this.paintPossibilites();
 				
-				// ToDo
+                                
 			}
 		}
 	}
+        
+        private void paintPossibilites()
+        {
+            List<Coord> possibilities = this.chessGameControler.getAllPossiblePlacements(this.initCoord);
+            JPanel square = null;
+
+            for (Iterator<Coord> iterator = possibilities.iterator(); iterator.hasNext();) {
+                Coord currentCoord = iterator.next();
+                square = (JPanel)this.chessBoardGuiContainer.getComponent((currentCoord.y*8)+currentCoord.x);
+                square.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.red));
+                square.revalidate();
+                square.repaint();
+                
+                
+            }
+        }
 
 
 	/* (non-Javadoc)
@@ -305,6 +322,15 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 		coord = new Coord(x.intValue(), y.intValue());
 		return coord;
 	}
+        
+        private Coord translateToPixels(Coord coords)
+        {
+            Coord pixels = null;
+            Double x = new Double(Math.floor(((this.boardSize.width-10) / (double)8) * coords.x));
+            Double y = new Double(Math.floor(((this.boardSize.width-30) / (double)8) * coords.y));
+            pixels = new Coord(x.intValue(), y.intValue());
+            return pixels;
+        }
 
 	@Override	
 	public void mouseClicked(MouseEvent e) {

@@ -56,8 +56,9 @@ public class Jeu implements Game {
         public List<PieceIHMs>getPiecesIHM()
         {
             List<PieceIHMs> result = new ArrayList();
-            for(final Pieces piece : pieces)
+            for(Pieces piece : pieces)
             {
+                if(piece.getX()>-1)
                 result.add(new PieceIHM(piece));
             }
             return result;

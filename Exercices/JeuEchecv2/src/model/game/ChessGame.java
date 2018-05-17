@@ -5,7 +5,10 @@
  */
 package model.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import model.Coord;
 import model.Couleur;
 import tools.CustomObservable;
 import tools.CustomObserver;
@@ -35,6 +38,12 @@ public class ChessGame extends CustomObservable implements BoardGames{
         }
         this.notifyObservers();
         return returnValue;
+    }
+    
+    @Override
+    public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal)
+    {
+        return this.echiquier.isMoveOk(xInit, yInit, xFinal, yFinal);
     }
 
     @Override

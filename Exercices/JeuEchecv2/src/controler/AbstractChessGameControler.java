@@ -5,6 +5,8 @@
  */
 package controler;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.Coord;
 import model.game.BoardGames;
 
@@ -43,6 +45,18 @@ public abstract class AbstractChessGameControler implements ChessGameControlers{
     @Override
     public String toString() {
         return "AbstractChessGameControler{" + "game=" + game + '}';
+    }
+    
+    public List<Coord> getAllPossiblePlacements(Coord coords){
+        List<Coord> res = new ArrayList<Coord>();
+        for (int col = 0; col < 8; col++) {
+            for(int row = 0; row < 8; row++){
+                if(this.game.isMoveOk(coords.x, coords.y, col, row)){
+                    res.add(new Coord(col,row));
+                }
+            }            
+        }
+        return res;
     }
     
     

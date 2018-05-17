@@ -1,5 +1,6 @@
 package model.game;
 
+import java.util.ArrayList;
 import model.game.BoardGames;
 import model.game.Jeu;
 import java.util.LinkedList;
@@ -94,6 +95,7 @@ public class Echiquier implements BoardGames {
 	 * @return true si le déplacement est effectué, false sinon
 	 * 
 	 */
+        @Override
 	public boolean isMoveOk(int xInit, int yInit, int xFinal, int yFinal) {
 
 		this.isMoveOk = false;
@@ -361,8 +363,8 @@ public class Echiquier implements BoardGames {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
+        
+        
 	public static void main(String[] args) {
 		Echiquier e = new Echiquier();
 		boolean isMoveOK = false;
