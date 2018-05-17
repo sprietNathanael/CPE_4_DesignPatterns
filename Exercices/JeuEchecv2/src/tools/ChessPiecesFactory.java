@@ -49,7 +49,7 @@ public class ChessPiecesFactory {
                                                 //pieces.add((Pieces) Introspection.newInstance (className, new Object[] {pieceCouleur, pieceCoord}));
                                                 Behaviours behaviour = (Behaviours)Class.forName(className).getMethod("getInstance", null).invoke(null, null);
                                                 //pieces.add((Pieces) Introspection.newInstance("model.pieces.Piece", new Object[] {pieceCouleur, pieceCoord, behaviour}));
-                                                pieces.add((Pieces) new Piece(pieceCouleur, pieceCoord, behaviour));
+                                                pieces.add((Pieces) new Piece(pieceCouleur, pieceCoord, behaviour, TempeteBehaviourFactory.getInstance()));
                                             } catch (ClassNotFoundException ex) {
                                                 Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
                                             } catch (NoSuchMethodException ex) {

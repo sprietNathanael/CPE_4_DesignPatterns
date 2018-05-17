@@ -1,9 +1,11 @@
 package model.pieces;
 
+import java.util.HashMap;
 import java.util.Map;
 import model.Coord;
 import model.Couleur;
 import model.pieces.behaviours.Behaviours;
+import model.pieces.behaviours.Tour;
 
 
 
@@ -14,14 +16,20 @@ import model.pieces.behaviours.Behaviours;
  * Chaque classe d�riv�e (Pion, etc.) sera capable de dire 
  * si le d�placement est OK.
  */
+import tools.BehaviourFactories;
 public class Piece implements Pieces {
 
 	private int x, y;
 	private Couleur couleur;
         private Behaviours behaviour;
         private final Behaviours initialBehaviour;
+        private BehaviourFactories behaviourFactory;
         private boolean premierCoup;
-        //private static Map<Integer, Behaviours> behavioursByColumn;
+        /*private static final Map<Integer, Behaviours> behavioursByColumn = new HashMap<>();
+        static {
+            behavioursByColumn.put(0, Tour);
+            behavioursByColumn.put(7, "two");
+        }*/
 	
 
 	/**
@@ -30,13 +38,15 @@ public class Piece implements Pieces {
          * @param behaviour
 	 * @param coord
 	 */
-	public Piece(Couleur couleur, Coord coord, Behaviours behaviour){
+	public Piece(Couleur couleur, Coord coord, Behaviours behaviour, BehaviourFactories behaviourFactory){
 		this.x = coord.x;
 		this.y = coord.y;
 		this.couleur=couleur;
                 this.behaviour = behaviour;
                 this.initialBehaviour = behaviour;
                 this.premierCoup = true;
+                this.behaviourFactory = behaviourFactory;
+                this.updateBehaviour();
 	}
 
 	/* (non-Javadoc)
@@ -80,9 +90,15 @@ public class Piece implements Pieces {
 			ret = true;
                         this.premierCoup = false;
 		}
+                this.updateBehaviour();                
 		return ret;
 
 	}
+        
+        private void updateBehaviour()
+        {
+            this.behaviour = this.behaviourFactory.getBehaviour(this.x,this.y,this.initialBehaviour);
+        }
 	
 	/* (non-Javadoc)
 	 * @see model.Pieces#capture()
