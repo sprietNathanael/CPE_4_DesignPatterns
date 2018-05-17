@@ -38,12 +38,12 @@ public class Piece implements Pieces {
          * @param behaviour
 	 * @param coord
 	 */
-	public Piece(Couleur couleur, Coord coord, Behaviours behaviour, BehaviourFactories behaviourFactory){
+	public Piece(Couleur couleur, Coord coord, String classname, BehaviourFactories behaviourFactory){
 		this.x = coord.x;
 		this.y = coord.y;
 		this.couleur=couleur;
                 this.behaviour = behaviour;
-                this.initialBehaviour = behaviour;
+                this.initialBehaviour = behaviourFactory.buildBehaviour(classname);
                 this.premierCoup = true;
                 this.behaviourFactory = behaviourFactory;
                 this.updateBehaviour();

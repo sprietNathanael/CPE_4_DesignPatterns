@@ -5,8 +5,11 @@
  */
 package tools;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.pieces.behaviours.Behaviours;
 import model.pieces.behaviours.Cavalier;
 import model.pieces.behaviours.Fou;
@@ -47,6 +50,28 @@ public class TempeteBehaviourFactory implements BehaviourFactories{
     public Behaviours getBehaviour(int x, int y, Behaviours initialBehaviour) {
         Behaviours res = behavioursMap.get(x);
         res = (res == null) ? initialBehaviour : res;
+        return res;
+    }
+    
+    @Override
+    public Behaviours buildBehaviour(String classname)
+    {
+        Behaviours res = null;
+        try {
+            res = (Behaviours)Class.forName(classname).getMethod("getInstance", null).invoke(null, null);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(TempeteBehaviourFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return res;
     }
 }

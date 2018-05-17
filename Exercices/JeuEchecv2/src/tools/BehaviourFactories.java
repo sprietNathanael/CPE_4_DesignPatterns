@@ -13,4 +13,5 @@ import model.pieces.behaviours.Behaviours;
  */
 public interface BehaviourFactories {
     public Behaviours getBehaviour(int x, int y, Behaviours initialBehaviour);
+    public Behaviours buildBehaviour(String classname);
 }

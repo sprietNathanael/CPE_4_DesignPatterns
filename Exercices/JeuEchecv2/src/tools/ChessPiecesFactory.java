@@ -45,24 +45,8 @@ public class ChessPiecesFactory {
 					for (int j = 0; j < (ChessPiecePos.values()[i].coords).length; j++) {
 						String className = "model.pieces.behaviours." + ChessPiecePos.values()[i].nom;	// attention au chemin
 						Coord pieceCoord = ChessPiecePos.values()[i].coords[j];
-                                            try {
-                                                //pieces.add((Pieces) Introspection.newInstance (className, new Object[] {pieceCouleur, pieceCoord}));
-                                                Behaviours behaviour = (Behaviours)Class.forName(className).getMethod("getInstance", null).invoke(null, null);
-                                                //pieces.add((Pieces) Introspection.newInstance("model.pieces.Piece", new Object[] {pieceCouleur, pieceCoord, behaviour}));
-                                                pieces.add((Pieces) new Piece(pieceCouleur, pieceCoord, behaviour, TempeteBehaviourFactory.getInstance()));
-                                            } catch (ClassNotFoundException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            } catch (NoSuchMethodException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            } catch (SecurityException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            } catch (IllegalAccessException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            } catch (IllegalArgumentException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            } catch (InvocationTargetException ex) {
-                                                Logger.getLogger(ChessPiecesFactory.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
+                                                BehaviourFactories factory = TempeteBehaviourFactory.getInstance();
+                                                pieces.add((Pieces) new Piece(pieceCouleur, pieceCoord, className, factory));
 					}
 				}
 			}
