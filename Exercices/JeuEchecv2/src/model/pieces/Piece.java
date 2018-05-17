@@ -1,7 +1,9 @@
 package model.pieces;
 
+import java.util.Map;
 import model.Coord;
 import model.Couleur;
+import model.pieces.behaviours.Behaviours;
 
 
 
@@ -12,21 +14,29 @@ import model.Couleur;
  * Chaque classe d�riv�e (Pion, etc.) sera capable de dire 
  * si le d�placement est OK.
  */
-public abstract class AbstractPiece implements Pieces {
+public class Piece implements Pieces {
 
 	private int x, y;
 	private Couleur couleur;
+        private Behaviours behaviour;
+        private final Behaviours initialBehaviour;
+        private boolean premierCoup;
+        //private static Map<Integer, Behaviours> behavioursByColumn;
 	
 
 	/**
 	 * @param name
 	 * @param couleur
+         * @param behaviour
 	 * @param coord
 	 */
-	public AbstractPiece(Couleur couleur, Coord coord){
+	public Piece(Couleur couleur, Coord coord, Behaviours behaviour){
 		this.x = coord.x;
 		this.y = coord.y;
 		this.couleur=couleur;
+                this.behaviour = behaviour;
+                this.initialBehaviour = behaviour;
+                this.premierCoup = true;
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +64,7 @@ public abstract class AbstractPiece implements Pieces {
 	 * @see model.piece.Pieces#getType()
 	 */
 	public String getName() {
-		return getClass().getSimpleName();
+		return this.initialBehaviour.getClass().getSimpleName();
 	}
 	
 	/* (non-Javadoc)
@@ -68,6 +78,7 @@ public abstract class AbstractPiece implements Pieces {
 			this.x=x;
 			this.y=y;
 			ret = true;
+                        this.premierCoup = false;
 		}
 		return ret;
 
@@ -90,7 +101,7 @@ public abstract class AbstractPiece implements Pieces {
 	 * 
 	 */
 	public String toString(){	
-		String S = (this.getClass().getSimpleName()).substring(0, 2) 
+		String S = (this.getName()).substring(0, 2) 
 				+ " " + this.x + " " + this.y;
 		
 		return S;
@@ -103,8 +114,10 @@ public abstract class AbstractPiece implements Pieces {
 	 * En fonction du type de pièce (Pion, etc.)
 	 * est capable de dire si le déplacement est OK
 	 */
-	public abstract boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk,
-			boolean isCastlingPossible) ;
+	public boolean isMoveOk(int xFinal, int yFinal, boolean isCatchOk, boolean isCastlingPossible)
+        {
+            return(this.behaviour.isMoveOk(this.x, this.y, xFinal, yFinal, isCatchOk, isCastlingPossible, this.premierCoup));
+        }
 
 }
 
