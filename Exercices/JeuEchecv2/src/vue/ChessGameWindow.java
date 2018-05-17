@@ -193,9 +193,12 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
             drawGrid();
             for (Iterator<PieceIHMs> iter = piecesIHM.listIterator(); iter.hasNext(); ) {
                 PieceIHMs pieceIHM = iter.next();
-                piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getName(), pieceIHM.getCouleur())));
-                panel = (JPanel) chessBoardGuiContainer.getComponent((pieceIHM.getX()) + (pieceIHM.getY() * 8));
-                panel.add(piece);
+                if(pieceIHM.getX() >= 0 || pieceIHM.getY() >= 0)
+                {
+                    piece = new JLabel(new ImageIcon(ChessImageProvider.getImageFile(pieceIHM.getName(), pieceIHM.getCouleur())));
+                    panel = (JPanel) chessBoardGuiContainer.getComponent((pieceIHM.getX()) + (pieceIHM.getY() * 8));
+                    panel.add(piece);
+                }
             }
             chessBoardGuiContainer.repaint();
         }
