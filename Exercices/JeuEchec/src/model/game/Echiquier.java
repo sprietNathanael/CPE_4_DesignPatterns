@@ -1,5 +1,6 @@
 package model.game;
 
+import java.util.ArrayList;
 import model.game.BoardGames;
 import model.game.Jeu;
 import java.util.LinkedList;
@@ -361,6 +362,19 @@ public class Echiquier implements BoardGames {
 		// TODO Auto-generated method stub
 		return false;
 	}
+        
+        public List<Coord> getAllPossiblePlacements(int x, int y){
+        List<Coord> res = new ArrayList<Coord>();
+        for (int col = 0; col < 8; col++) {
+            for(int row = 0; row < 8; row++){
+                if(this.isMoveOk(x, y, row, col)){
+                    res.add(new Coord(row,col));
+                }
+            }
+            
+        }
+        return res;
+    }
 
 
 	public static void main(String[] args) {

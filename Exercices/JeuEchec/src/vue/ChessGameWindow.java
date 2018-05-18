@@ -240,7 +240,8 @@ public class ChessGameWindow extends JFrame implements MouseListener, MouseMotio
 				// Mise en évidence des cases vers lesquelles 
 				// la pièce peut être déplacée 	
 				
-				// ToDo
+                                System.out.println(this.pieceToMove.getX());
+				this.chessGameControler.getAllPossiblePlacements(this.pieceToMove.getX(), this.pieceToMove.getY());
 			}
 		}
 	}

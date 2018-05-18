@@ -5,6 +5,7 @@
  */
 package controler;
 
+import java.util.List;
 import model.Coord;
 import model.game.BoardGames;
 
@@ -43,6 +44,10 @@ public abstract class AbstractChessGameControler implements ChessGameControlers{
     @Override
     public String toString() {
         return "AbstractChessGameControler{" + "game=" + game + '}';
+    }
+    
+    public List<Coord> getAllPossiblePlacements(int x, int y){
+        return this.game.getAllPossiblePlacements(x, y);
     }
     
     

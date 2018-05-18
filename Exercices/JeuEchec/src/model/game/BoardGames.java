@@ -1,5 +1,7 @@
 package model.game;
 
+import java.util.List;
+import model.Coord;
 import model.Couleur;
 
 
@@ -44,5 +46,7 @@ public interface BoardGames {
 	 * @return la couleur de la pièce sélectionnée
 	 */
 	public Couleur getPieceColor(int x, int y);
+        
+        public List<Coord> getAllPossiblePlacements(int x, int y);
  
 }
